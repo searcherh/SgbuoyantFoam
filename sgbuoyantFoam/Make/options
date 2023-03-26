@@ -1,0 +1,24 @@
+EXE_INC = \
+    -I. \
+    -I$(FOAM_SOLVERS)/compressible/rhoPimpleFoam \
+    -I$(FOAM_SRC)/physicalProperties/lnInclude \
+    -I$(FOAM_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(FOAM_SRC)/MomentumTransportModels/momentumTransportModels/lnInclude \
+    -I$(FOAM_SRC)/MomentumTransportModels/compressible/lnInclude \
+    -I$(FOAM_SRC)/ThermophysicalTransportModels/lnInclude \
+    -I$(FOAM_SRC)/finiteVolume/cfdTools \
+    -I$(FOAM_SRC)/finiteVolume/lnInclude \
+    -I$(FOAM_SRC)/meshTools/lnInclude \
+    -I$(FOAM_SRC)/sampling/lnInclude
+
+EXE_LIBS = \
+    -lfluidThermophysicalModels \
+    -lspecie \
+    -lmomentumTransportModels \
+    -lcompressibleMomentumTransportModels \
+    -lthermophysicalTransportModels \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lsampling \
+    -lfvModels \
+    -lfvConstraints
