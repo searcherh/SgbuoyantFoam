@@ -20,27 +20,27 @@ internalField   uniform 0;
 
 boundaryField
 {
-    frontAndBack
+    inlet1
     {
-        type            compressible::alphatWallFunction;
-        Prt             0.85;
+        type            calculated;
         value           uniform 0;
     }
-    topAndBottom
+
+    inlet2
     {
-        type            compressible::alphatWallFunction;
-        Prt             0.85;
+        type            calculated;
         value           uniform 0;
     }
-    hot
+
+    outlet
     {
-        type            compressible::alphatWallFunction;
-        Prt             0.85;
+        type            calculated;
         value           uniform 0;
     }
-    cold
+
+    PipeWalls
     {
-        type            compressible::alphatWallFunction;
+       type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }

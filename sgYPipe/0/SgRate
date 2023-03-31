@@ -10,11 +10,11 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      nut;
+    object      SgRate;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+dimensions      [1 -1 -3 -1 0 0 0];
 
 internalField   uniform 0;
 
@@ -23,28 +23,25 @@ boundaryField
     inlet1
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
     }
 
     inlet2
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
     }
 
     outlet
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
     }
 
     PipeWalls
     {
-        type            nutkWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
-        value           uniform 0;
+        type            calculated;
+        value           $internalField;
     }
 }
 

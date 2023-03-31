@@ -26,6 +26,15 @@ solvers
 
     }
 
+        Phi
+    {
+        solver          GAMG;
+        smoother        DIC;
+
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
     "(U|h|k|epsilon|omega)"
     {
         solver          PBiCGStab;
@@ -66,6 +75,11 @@ relaxationFactors
         h               0.3;
         "(k|epsilon|omega)" 0.7;
     }
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 3;
 }
 
 

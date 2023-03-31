@@ -1,0 +1,133 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 300;
+
+boundaryField
+{
+    floor
+    {
+        type            zeroGradient;
+    }
+    ceiling
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            fixedValue;
+        value           uniform 300;
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform 300;
+        value           uniform 300;
+    }
+    fixedWalls
+    {
+        type            empty;
+    }
+    baffle1D0
+    {
+        type            compressible::thermalBaffle1D<eConstSolidThermoPhysics>;
+        refValue        uniform 300;
+        refGradient     uniform 0;
+        valueFraction   uniform 0;
+        value           uniform 300;
+        thickness       uniform 0.005;
+        qs              uniform 100;
+        specie
+        {
+            molWeight       20;
+        }
+        equationOfState
+        {
+            rho             10;
+        }
+        thermodynamics
+        {
+            Cv              10;
+            Hf              0;
+        }
+        transport
+        {
+            kappa           1;
+        }
+        qrPrevious      uniform 0;
+        qr              none;
+        qrRelaxation    1;
+    }
+    baffle1D1
+    {
+        type            compressible::thermalBaffle1D<eConstSolidThermoPhysics>;
+        refValue        uniform 300;
+        refGradient     uniform 0;
+        valueFraction   uniform 0;
+        value           uniform 300;
+        qrPrevious      uniform 0;
+        qr              none;
+        qrRelaxation    1;
+    }
+    baffle3D0
+    {
+        type            compressible::thermalBaffle;
+        refValue        uniform 300;
+        refGradient     uniform 0;
+        valueFraction   uniform 1;
+        value           uniform 300;
+        Tnbr            T;
+        qrNbr           none;
+        qr              none;
+        thicknessLayers List<scalar> 0();
+        kappaLayers     List<scalar> 0();
+        type            compressible::thermalBaffle;
+        neighbourPatch  baffle3D1;
+        value           uniform 300;
+        extrudeModel    linearNormal;
+        nLayers         50;
+        expansionRatio  1;
+        linearNormalCoeffs
+        {
+            thickness       0.02;
+        }
+        radiation
+        {
+            radiationModel  opaqueSolid;
+            absorptionEmissionModel none;
+            scatterModel    none;
+        }
+    }
+    baffle3D1
+    {
+        type            compressible::thermalBaffle;
+        refValue        uniform 300;
+        refGradient     uniform 0;
+        valueFraction   uniform 1;
+        value           uniform 300;
+        Tnbr            T;
+        qrNbr           none;
+        qr              none;
+        thicknessLayers List<scalar> 0();
+        kappaLayers     List<scalar> 0();
+        neighbourPatch  baffle3D0;
+    }
+}
+
+
+// ************************************************************************* //

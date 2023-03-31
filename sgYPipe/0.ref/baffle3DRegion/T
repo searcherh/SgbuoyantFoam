@@ -10,41 +10,22 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      nut;
+    object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 300;
 
 boundaryField
 {
-    inlet1
-    {
-        type            calculated;
-        value           uniform 0;
-    }
+    #includeEtc "caseDicts/setConstraintTypes"
 
-    inlet2
+    ".*"
     {
-        type            calculated;
-        value           uniform 0;
-    }
-
-    outlet
-    {
-        type            calculated;
-        value           uniform 0;
-    }
-
-    PipeWalls
-    {
-        type            nutkWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
-        value           uniform 0;
+        type                compressible::thermalBaffle;
+        value               uniform 300;
     }
 }
 

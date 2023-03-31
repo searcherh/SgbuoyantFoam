@@ -16,30 +16,32 @@ FoamFile
 
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 293;
+internalField   uniform 273;
 
 boundaryField
 {
-    frontAndBack
-    {
-        type            zeroGradient;
-    }
-
-    topAndBottom
-    {
-        type            zeroGradient;
-    }
-
-    hot
+    inlet1
     {
         type            fixedValue;
-        value           uniform 307.75; // 34.6 degC
+        value           uniform 273;
     }
 
-    cold
+    inlet2
     {
         type            fixedValue;
-        value           uniform 288.15; // 15 degC
+        value           uniform 303;
+    }
+
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform 273;
+        value           uniform 273;
+    }
+
+    PipeWalls
+    {
+        type            zeroGradient;
     }
 }
 

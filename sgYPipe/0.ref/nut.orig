@@ -20,25 +20,10 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inlet1
-    {
-        type            calculated;
-        value           uniform 0;
-    }
+    //- Set patchGroups for constraint patches
+    #includeEtc "caseDicts/setConstraintTypes"
 
-    inlet2
-    {
-        type            calculated;
-        value           uniform 0;
-    }
-
-    outlet
-    {
-        type            calculated;
-        value           uniform 0;
-    }
-
-    PipeWalls
+    floor
     {
         type            nutkWallFunction;
         Cmu             0.09;
@@ -46,6 +31,29 @@ boundaryField
         E               9.8;
         value           uniform 0;
     }
+    ceiling
+    {
+        type            nutkWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        value           uniform 0;
+    }
+    inlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    outlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    fixedWalls
+    {
+        type            empty;
+    }
+
 }
 
 

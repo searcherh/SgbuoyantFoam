@@ -10,41 +10,46 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      nut;
+    object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 1e5;
 
 boundaryField
 {
-    inlet1
+    //- Set patchGroups for constraint patches
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    floor
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
     }
 
-    inlet2
+    ceiling
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
+    }
+
+    inlet
+    {
+        type            calculated;
+        value           $internalField;
     }
 
     outlet
     {
         type            calculated;
-        value           uniform 0;
+        value           $internalField;
     }
 
-    PipeWalls
+    fixedWalls
     {
-        type            nutkWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
-        value           uniform 0;
+        type            empty;
     }
 }
 

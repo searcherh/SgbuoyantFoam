@@ -20,28 +20,56 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inlet1
+    floor
     {
         type            fixedFluxPressure;
-        value           $internalField;
+        gradient        uniform 0;
+        value           uniform 0;
     }
-
-    inlet2
+    ceiling
     {
         type            fixedFluxPressure;
-        value           $internalField;
+        gradient        uniform 0;
+        value           uniform 0;
     }
-
+    inlet
+    {
+        type            fixedFluxPressure;
+        gradient        uniform 0;
+        value           uniform 0;
+    }
     outlet
     {
-        type            fixedFluxPressure;
-        value           $internalField;
+        type            fixedValue;
+        value           uniform 0;
     }
-
-    PipeWalls
+    fixedWalls
+    {
+        type            empty;
+    }
+    baffle1D0
     {
         type            fixedFluxPressure;
-        value           $internalField;
+        gradient        uniform 0;
+        value           uniform 0;
+    }
+    baffle1D1
+    {
+        type            fixedFluxPressure;
+        gradient        uniform 0;
+        value           uniform 0;
+    }
+    baffle3D0
+    {
+        type            fixedFluxPressure;
+        gradient        uniform 0;
+        value           uniform 0;
+    }
+    baffle3D1
+    {
+        type            fixedFluxPressure;
+        gradient        uniform 0;
+        value           uniform 0;
     }
 }
 

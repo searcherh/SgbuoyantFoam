@@ -20,29 +20,47 @@ internalField   uniform 0.01;
 
 boundaryField
 {
-    inlet1
+    floor
+    {
+        type            epsilonWallFunction;
+        value           uniform 0.01;
+    }
+    ceiling
+    {
+        type            epsilonWallFunction;
+        value           uniform 0.01;
+    }
+    inlet
     {
         type            fixedValue;
         value           uniform 0.01;
     }
-
-    inlet2
-    {
-        type            fixedValue;
-        value           uniform 0.01;
-    }
-
     outlet
     {
         type            zeroGradient;
     }
-
-    PipeWalls
+    fixedWalls
     {
-       type            epsilonWallFunction;
-        Cmu             0.09;
-        kappa           0.41;
-        E               9.8;
+        type            empty;
+    }
+    baffle1D0
+    {
+        type            epsilonWallFunction;
+        value           uniform 0.01;
+    }
+    baffle1D1
+    {
+        type            epsilonWallFunction;
+        value           uniform 0.01;
+    }
+    baffle3D0
+    {
+        type            epsilonWallFunction;
+        value           uniform 0.01;
+    }
+    baffle3D1
+    {
+        type            epsilonWallFunction;
         value           uniform 0.01;
     }
 }
