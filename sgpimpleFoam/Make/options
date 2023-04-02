@@ -1,0 +1,17 @@
+EXE_INC = \
+    -I$(FOAM_SRC)/MomentumTransportModels/momentumTransportModels/lnInclude \
+    -I$(FOAM_SRC)/MomentumTransportModels/incompressible/lnInclude \
+    -I$(FOAM_SRC)/physicalProperties/lnInclude \
+    -I$(FOAM_SRC)/finiteVolume/lnInclude \
+    -I$(FOAM_SRC)/sampling/lnInclude \
+    -I$(FOAM_SRC)/meshTools/lnInclude \
+
+EXE_LIBS = \
+    -lmomentumTransportModels \
+    -lincompressibleMomentumTransportModels \
+    -lphysicalProperties \
+    -lfiniteVolume \
+    -lfvModels \
+    -lfvConstraints \
+    -lsampling \
+    -lmeshTools
