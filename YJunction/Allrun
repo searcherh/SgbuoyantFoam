@@ -1,0 +1,11 @@
+#!/bin/sh
+cd ${0%/*} || exit 1 # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+ideasUnvToFoam YPipe.unv
+foamDictionary constant/polyMesh/boundary -entry entry0/PipeWalls/type -set wall
+runApplication $(getApplication)
+
+touch foam.foam
