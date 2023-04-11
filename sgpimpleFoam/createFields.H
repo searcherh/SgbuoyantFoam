@@ -58,8 +58,6 @@ autoPtr<incompressible::momentumTransportModel> turbulence
     incompressible::momentumTransportModel::New(U, phi, viscosity)
 );
 
-Info<< "Reading transportProperties\n" << endl;
- 
 IOdictionary physicalProperties
 (
     IOobject
@@ -67,26 +65,34 @@ IOdictionary physicalProperties
         "physicalProperties",
         runTime.constant(),
         mesh,
-        IOobject::MUST_READ,
+        IOobject::MUST_READ_IF_MODIFIED,
         IOobject::NO_WRITE
     )
 );
  
 dimensionedScalar nu
 (
+    "nu",
      physicalProperties.lookup("nu")
 );
 
 dimensionedScalar DT
 (
+    "DT",
      physicalProperties.lookup("DT")
 );
 
 dimensionedScalar rho
 (
+    "rho",
      physicalProperties.lookup("rho")
 );
 
+dimensionedScalar Cp
+(
+    "Cp",
+     physicalProperties.lookup("Cp")
+);
 
 #include "createMRF.H"
 #include "createFvModels.H"

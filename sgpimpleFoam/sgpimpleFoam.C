@@ -138,14 +138,27 @@ int main(int argc, char *argv[])
 
         TEqn.solve();
 
-        SgT = (DT*rho*((fvc::grad(T))&(fvc::grad(T))))/(T*T);
+        SgT = ((Cp*DT*rho)*((fvc::grad(T))&(fvc::grad(T))))/(T*T);
 
-        SgP	= (2*nu*rho/T)*(2*(Uxx*Uxx+Uyy*Uyy+Uzz*Uzz)
-                +((Uxy+Uyx)*(Uxy+Uyx)
-                +(Uxz+Uzx)*(Uxz+Uzx)
-                +(Uyz+Uzy)*(Uyz+Uzy)));
+        SgP = ZERO;
+
+        for (int i = 0;i<=2;i++)
+        {
+             for (int j = 0;j<=2;j++)
+             {
+                volVectorField Ui = fvc::grad(U.component(i));
+                volVectorField Uj = fvc::grad(U.component(j));
+
+                SgP += (nu*rho/T)*Ui.component(j)*
+                      (Ui.component(j)+Uj.component(i));
+             }    
+        }
 
         SgRate = SgT + SgP;
+
+        //理论上应该加一个LTS的if判断语句，但是本案例没用到就没加
+        Sg = Sg + fvc::domainIntegrate(SgRate*runTime.deltaTValue());
+        Info<< "Sg = " << Sg.value() << nl << endl;
 
         runTime.write();
 

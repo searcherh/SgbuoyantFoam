@@ -1,4 +1,4 @@
-volScalarField SgT
+		volScalarField SgT
 	(
 	    IOobject
 	    (
@@ -37,22 +37,18 @@ volScalarField SgT
         mesh
     );
 
-	volScalarField Ux (U.component(vector::X));
-	volScalarField Uy (U.component(vector::Y));
-	volScalarField Uz (U.component(vector::Z));
+		volScalarField ZERO 
+	(
+		IOobject
+		(
+			"ZERO",
+			runTime.timeName(),
+			mesh,
+			IOobject::NO_READ,
+			IOobject::NO_WRITE 
+		),
+		mesh,
+		dimensionedScalar("ZERO",dimensionSet(1,-1,-3,-1,0,0,0),0)
+	);
 
-	volVectorField gradUx (fvc::grad(Ux));
-	volVectorField gradUy (fvc::grad(Uy));
-	volVectorField gradUz (fvc::grad(Uz));
-
-	volScalarField Uxx (gradUx.component(vector::X));
-	volScalarField Uxy (gradUx.component(vector::Y));
-	volScalarField Uxz (gradUx.component(vector::Z));
-
-	volScalarField Uyx (gradUy.component(vector::X));
-	volScalarField Uyy (gradUy.component(vector::Y));
-	volScalarField Uyz (gradUy.component(vector::Z));
-
-	volScalarField Uzx (gradUz.component(vector::X));
-	volScalarField Uzy (gradUz.component(vector::Y));
-	volScalarField Uzz (gradUz.component(vector::Z));
+		dimensionedScalar Sg = fvc::domainIntegrate(ZERO*runTime.deltaTValue());

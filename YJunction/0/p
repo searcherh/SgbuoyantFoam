@@ -22,31 +22,13 @@ boundaryField
     inlet1
     {
         type            uniformTotalPressure;
-        p0
-        {
-            type table;
-
-            values
-            (
-                (0 10)
-                (1 40)
-            );
-        }
+        p0              uniform     10;
     }
 
     inlet2
     {
         type            uniformTotalPressure;
-        p0
-        {
-            type table;
-
-            values
-            (
-                (0 10)
-                (1 40)
-            );
-        }
+        p0              uniform     10;
     }
 
     outlet
