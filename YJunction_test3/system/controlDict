@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     sgpimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         60;
+
+deltaT          0.01;
+
+writeControl    adjustableRunTime;
+
+writeInterval   1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           1;
+
+maxDeltaT       0.1;
+
+functions
+{
+  #includeFunc patchFlowRate(patch = inlet1)
+  #includeFunc patchFlowRate(patch = inlet2)
+  #includeFunc patchFlowRate(patch = outlet)
+
+  #includeFunc patchAverage(U,name = inlet1,patch=inlet1)
+  #includeFunc patchAverage(U,name = inlet2,patch=inlet2)
+  #includeFunc patchAverage(U,name = outlet,patch=outlet)
+
+  #includeFunc patchAverage(T,name = outlet,patch=outlet)
+}
+
+// ************************************************************************* //
